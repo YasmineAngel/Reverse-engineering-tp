@@ -1,6 +1,6 @@
 # General information
 
-- Name of the challenge: base_63
+- Name of the challenge: base-ique
 
 - Download date: January 1st 2022 00h00
 - Resolved: Yes/No

@@ -37,7 +37,9 @@ FUN_00401c80 :
 this function calls FUN_00401b40(param_1 + -9) which calls FUN_00401ae0(param_1 + 2); which calls FUN_00401b00(param_1 + -8); which calls FUN_00401be0(param_1 + 3); which calls :FUN_00401c00(param_1 + -7); which also calls FUN_00401d40(param_1 + 4); which calls FUN_00401d00(param_1 + -6);which calls FUN_00401cc0(param_1 + 5); which calls FUN_00401ce0(param_1 + -5); which calls FUN_00401d60(param_1 + 6);which calls FUN_00401b60(param_1 + -4);which calls FUN_00401b80(param_1 + 7); ........ until the function  FUN_00401bc0 that calls FUN_00401910(param_1); which calls thunk_FUN_00422e70();
 **images of FUN_00401bc0 and FUN_00401910**
 **image of thunk_FUN_00422e70**
+this function does the following : 
 
-
-same thing happened with  FUN_00401fc0 which led to 
+ 
+same thing happened with  FUN_00401fc0 which led to the function FUN_00401820
 **image**
+this final function FUN_00401820 does the following : 

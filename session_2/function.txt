@@ -1,0 +1,310 @@
+
+
+void FUN_00401c80(long param_1)
+
+{
+
+  FUN_00401b20(param_1 + 1);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401b20(long param_1)
+
+{
+
+  FUN_00401b40(param_1 + -9);
+
+  return;
+
+}
+
+
+
+void FUN_00401b40(long param_1)
+
+{
+
+  FUN_00401ae0(param_1 + 2);
+
+  return;
+
+}
+
+
+
+void FUN_00401ae0(long param_1)
+
+{
+
+  FUN_00401b00(param_1 + -8);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401b00(long param_1)
+
+{
+
+  FUN_00401be0(param_1 + 3);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401be0(long param_1)
+
+{
+
+  FUN_00401c00(param_1 + -7);
+
+  return;
+
+}
+
+
+
+void FUN_00401be0(long param_1)
+
+{
+
+  FUN_00401c00(param_1 + -7);
+
+  return;
+
+}
+
+
+void FUN_00401c00(long param_1)
+
+{
+  FUN_00401d40(param_1 + 4);
+  return;
+}
+
+void FUN_00401d40(long param_1)
+
+{
+
+  FUN_00401d00(param_1 + -6);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401d00(long param_1)
+
+{
+
+  FUN_00401cc0(param_1 + 5);
+
+  return;
+
+}
+
+void FUN_00401cc0(long param_1)
+
+{
+
+  FUN_00401ce0(param_1 + -5);
+
+  return;
+
+}
+
+
+
+void FUN_00401ce0(long param_1)
+
+{
+
+  FUN_00401d60(param_1 + 6);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401d60(long param_1)
+
+{
+
+  FUN_00401b60(param_1 + -4);
+
+  return;
+
+}
+
+
+
+
+
+void FUN_00401b60(long param_1)
+
+{
+
+  FUN_00401b80(param_1 + 7);
+
+  return;
+
+}
+
+
+
+void FUN_00401b80(long param_1)
+
+{
+
+  FUN_00401c20(param_1 + -3);
+
+  return;
+
+}
+
+void FUN_00401c20(long param_1)
+
+{
+
+  FUN_00401c40(param_1 + 8);
+
+  return;
+
+}
+
+
+
+void FUN_00401c40(long param_1)
+
+{
+
+  FUN_00401d20(param_1 + -2);
+
+  return;
+
+}
+
+
+
+void FUN_00401d20(long param_1)
+
+{
+
+  FUN_00401ca0(param_1 + 9);
+
+  return;
+
+}
+
+void FUN_00401ca0(long param_1)
+
+{
+
+  FUN_00401ba0(param_1 + -1);
+
+  return;
+
+}
+
+void FUN_00401ba0(long param_1)
+
+{
+
+  FUN_00401bc0(param_1 + 10);
+
+  return;
+
+}
+
+
+
+void FUN_00401bc0(undefined8 param_1)
+
+{
+
+  FUN_00401910(param_1);
+
+  return;
+
+}
+
+
+
+void FUN_00401910(void)
+
+{
+
+  thunk_FUN_00422e70();
+
+  return;
+
+}
+
+
+
+
+
+code * FUN_00422e70(void)
+
+{
+
+  code *pcVar1;
+
+  
+
+  pcVar1 = FUN_0043f770;
+
+  if (((DAT_004d03a8 & 0x120) == 0x120) && ((DAT_004d0494 & 0x200) != 0)) {
+
+    if (((int)DAT_004d03a8 < 0) && ((DAT_004d03a8 & 0x40000000) != 0)) {
+
+      return FUN_0044cf00;
+
+    }
+
+    pcVar1 = FUN_0044a460;
+
+    if ((DAT_004d03a8 & 0x800) == 0) {
+
+      pcVar1 = FUN_0043f770;
+
+      if ((DAT_004d0494 & 0x400) == 0) {
+
+        pcVar1 = FUN_0043fb40;
+
+      }
+
+      return pcVar1;
+
+    }
+
+  }
+
+  return pcVar1;
+
+}
+
+
+
+
+

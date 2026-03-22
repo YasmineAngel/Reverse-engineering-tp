@@ -19,30 +19,74 @@ I have try pass as argv and I have seen that it's not the right password
 I have opened the program in ghidra
 
 I have open the entry function and found this function passed as an arg which i assume it's the main FUN_001015b0
-**image**
+
+![image1](images-for-your-report/basique/entry-func.png)
+
 I open click on the main function 
-**image**
+
+![image1](images-for-your-report/basique/main.png)
+
 This is the condition that has to be checked to say it's the correct password : iVar1 == 0 
 and just before it there is this instruction : iVar1 = strcmp(__s1,&DAT_00102061); 
 This function call takes as parameter __s1 which in a previous instruction in the same function (main) : __s1 = (char *)FUN_00101430(param_2[1]);  
 So I decided to investigate this  FUN_00101430 and this DAT_00102061 
 
-## FUN_00101430
-**image**
+**FUN_00101430**
+
+![image1](images-for-your-report/basique/fun-00101430.png)
+
 this function calls 2 other functions : FUN_001012e0 and FUN_001013d0 so I check them out : 
 FUN_001012e0 : standard Base64 character validator .
-**image**
-FUN_001013d0 :PTR_s_+xz1/Dbg2FL5AHmRYKG0irVIOphZ7oj4_00104078 is a pointer to the Custom Base64 Alphabet at address 00104078 which in the binary view contains this 0a 20 10 00 00 00 00 00 and when I navigate to it 0010200a : 
-66 72 69 64 61 00 2b 78 7a 31 2f 44 62 67 32 46 4c 35 41 48 6d 52 59 4b 47 30 69 72 56 49 4f 70 68 5a 37 6f 6a 34 65 39 75 63 4d 79 42 6c 76 57 58 64 53 61 77 54 43 4a 74 50 71 55 6b 36 51 6e 73 4e 38 33 45 66 00 55 73 61 67 65 3a 20 25 73 20 3c 70 61 73 73 77 6f 72 64 3e 0a 00 c2 70 c9 25 d3 eb 02 b0 2c 0c e7 d1 00 47 6f 6f 64 20 70 61 73 73 77 6f 72 64 0a 00 57 72 6f 6e 67 20 70 61 73 73 77 6f 72 64 0a 00 49 6e 76 61 6c 69 64 20 66 6f 72 6d 61 74 0a 00 which translates to 
+
+![image1](images-for-your-report/basique/fun-001012e0.png)
+
+**FUN_001013d0**
+
+![image1](images-for-your-report/basique/fun-001013d0.png)
+
+PTR_s_+xz1/Dbg2FL5AHmRYKG0irVIOphZ7oj4_00104078 is a pointer to the Custom Base64 Alphabet at address 00104078 which in the bytes view contains this 0a 20 10 00 00 00 00 00 . It points to address 0x0010200a, which is where the actual alphabet string lives
+
+![image1](images-for-your-report/basique/alphabet-pointer.png)
+
+FUN_00101430 allocates a buffer then processes the input 4 characters at a time, decoding each group into 3 bytes using the standard Base64 bit manipulation:
+
+byte0 = (idx0 << 2) | ((idx1 & 0x30) >> 4)
+byte1 = ((idx1 & 0x0f) << 4) | ((idx2 & 0x3c) >> 2)
+byte2 = ((idx2 & 0x03) << 6) | idx3
+
+
+and when I navigate to it 0010200a : 
+
+![image1](images-for-your-report/basique/00102061-bytes-view.png)
+
+                  2b 78 7a 31 2f 44 62 67 32 46 4c 35 41 48 6d 52 59 4b 47 30 69 72 56 49 4f 70 68 5a 37 6f 6a 34 65 39 75 63 4d 79 42 6c 76 57 58 64 53 61 77 54 43 4a 74 50 71 55 6b 36 51 6e 73 4e 38 33 45 66 00 55 73 61 67 65 3a 20 25 73 20 3c 70 61 73 73 77 6f 72 64 3e 0a 00 c2 70 c9 25 d3 eb 02 b0 2c 0c e7 d1 00 47 6f 6f 64 20 70 61 73 73 77 6f 72 64 0a 00 57 72 6f 6e 67 20 70 61 73 73 77 6f 72 64 0a 00 49 6e 76 61 6c 69 64 20 66 6f 72 6d 61 74 0a 
+
+which translates to :
 +xz1/Dbg2FL5AHmRYKG0irVIOphZ7oj4e9ucMyBlvWXdSawTCJtPqUk6QnsN83Ef
 which is the full custom alphabet 
-**image**
+
 this function translates a single character into its  numerical value (0 through 63) based on its position in a the alphabet
-**image**
-## DAT_00102061
+
+**DAT_00102061**
+
 i look up the reference for this data : DAT_00102061 and when i click on there is nothing : 0010160c		LEA RSI,[DAT_00102061]	DATA
 So i went to the bytes view and navigated to this address : 00102061
-**image there are 2**
 
+![image1](images-for-your-report/basique/bytes-view-00102061.png)
 
-...
+The program decodes the input and compares it to the target so the password is the custom Base64 encoding of bytes we found. The encoding maps 3 bytes to 4 alphabet characters using the reverse of the decoder's bit operations:
+
+idx0 = b0 >> 2
+idx1 = ((b0 & 0x03) << 4) | (b1 >> 4)
+idx2 = ((b1 & 0x0f) << 2) | (b2 >> 6)
+idx3 = b2 & 0x3f
+
+- Bytes    |   Binary                    | 6-bit Indices  | Alphabet Chars
+- c2 70 c9 |   11000010 01110000 11001001 |   48, 39, 3, 9  |  C l 1 F
+- 25 d3 eb |   00100101 11010011 11101011 |   9, 29, 15, 43 |  F o R d
+- 02 b0 2c |   00000010 10110000 00101100 |   0, 43, 0, 44  |  + d + S
+- 0c e7 d1 |   00001100 11100111 11010001 |   3, 14, 31, 17 |  1 m 4 K
+
+Final password
+Cl1FFoRd+d+S1m4K
+

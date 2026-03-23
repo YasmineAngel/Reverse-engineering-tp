@@ -2,7 +2,7 @@
 
 - Name of the challenge: no_strings_rerereloaded
 
-- Download date: January 1st 2022 00h00
+- Download date: March 22nd 2026 10h21
 - Resolved: Yes/No
 
 - Solution (Password): XXX

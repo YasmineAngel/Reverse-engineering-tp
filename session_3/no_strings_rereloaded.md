@@ -3,7 +3,7 @@
 - Name of the challenge: no_strings_rereloaded
 
 - Download date: March 22nd 2026 10h21
-- Resolved: Yes/No
+- Resolved: Yes
 
 - Solution (Password): DOUG145 4d4m5
 - Finish date: January 1st 2022 00h00

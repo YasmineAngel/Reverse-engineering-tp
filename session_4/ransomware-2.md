@@ -5,7 +5,7 @@
 - Download date: January 1st 2022 00h00
 - Resolved: Yes/No
 
-- Solution (Password): XXX
+- Solution (Password): MBEDTLS,RSA_AES_CBC,2048,128
 - Finish date: January 1st 2022 00h00
 - Time spent: 0day 00h 00min
 
